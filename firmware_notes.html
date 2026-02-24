@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Firmware Notes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Arial;margin:0;background:#f4f6f9;}
+header{background:#1e3c72;color:white;text-align:center;padding:20px;}
+nav{background:#162447;padding:10px;text-align:center;}
+nav a{color:white;margin:15px;text-decoration:none;}
+.container{padding:30px;}
+pre{background:#272822;color:#f8f8f2;padding:15px;border-radius:8px;}
+.btn{display:inline-block;padding:10px 15px;background:#1e90ff;color:white;text-decoration:none;border-radius:5px;margin-top:20px;}
+.btn:hover{background:#0b63c5;}
+</style>
+</head>
+<body>
+
+<header><h1>Firmware Notes</h1></header>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="firmware_exam.html">Exam</a>
+</nav>
+
+<div class="container">
+
+<h2>1. What is Firmware?</h2>
+<p>Firmware is low-level software embedded in hardware devices.</p>
+
+<h2>2. Firmware Example (Embedded C)</h2>
+
+<pre>
+#include <avr/io.h>
+int main(void) {
+    DDRB |= (1 << PB0);
+    while(1) {
+        PORTB ^= (1 << PB0);
+    }
+}
+</pre>
+
+<h2>3. Firmware Updating Steps</h2>
+<ul>
+<li>Download firmware file</li>
+<li>Connect device</li>
+<li>Flash firmware</li>
+<li>Restart device</li>
+</ul>
+
+<a href="firmware_notes.pdf" class="btn" download>Download Firmware Notes PDF</a>
+
+<br><br>
+<a href="index.html" class="btn">⬅ Back to Home</a>
+
+</div>
+</body>
+</html>
