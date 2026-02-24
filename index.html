@@ -13,14 +13,13 @@ nav a:hover{color:#3498db;}
 .container{padding:40px;text-align:center;display:none;}
 .section-title{margin-top:40px;font-size:28px;color:#2c3e50;}
 .card{background:white;padding:25px;margin:20px auto;width:85%;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.1);text-align:left;}
-.card h3{margin-top:0;}
-.btn{display:inline-block;margin-top:15px;padding:10px 20px;background:#3498db;color:white;text-decoration:none;border-radius:6px;text-align:center;cursor:pointer;}
+.btn{display:inline-block;margin-top:15px;padding:10px 20px;background:#3498db;color:white;border-radius:6px;cursor:pointer;border:none;}
 .btn:hover{background:#2980b9;}
-input[type="email"], input[type="password"], input[type="file"]{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:1px solid #ccc;box-sizing:border-box;}
+input{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:1px solid #ccc;}
 footer{background:#2c3e50;color:white;text-align:center;padding:20px;margin-top:40px;}
-.saved-note{background:#eaf1fb;padding:10px;margin:5px 0;border-radius:6px;text-align:left;}
-#profilePic{border-radius:50%;margin:10px 0;width:150px;}
-pre{background:#272822;color:#f8f8f2;padding:15px;border-radius:8px;overflow:auto;margin:15px 0;}
+.saved-note{background:#eaf1fb;padding:10px;margin:5px 0;border-radius:6px;}
+pre{background:#272822;color:#f8f8f2;padding:15px;border-radius:8px;overflow:auto;}
+#profilePic,#profilePicProfile,#profilePicSettings{border-radius:50%;width:150px;margin:10px 0;}
 </style>
 </head>
 <body>
@@ -32,104 +31,102 @@ pre{background:#272822;color:#f8f8f2;padding:15px;border-radius:8px;overflow:aut
 
 <nav>
 <a onclick="showSection('home')">Home</a>
-<a onclick="showSection('notes')">Notes</a>
-<a onclick="showSection('exam')">Exam</a>
+<a onclick="requireLogin('notes')">Notes</a>
+<a onclick="requireLogin('exam')">Exams</a>
 <a onclick="showSection('login')">Login</a>
-<a onclick="showSection('profileSection')">Profile</a>
-<a onclick="showSection('settings')">Settings</a>
+<a onclick="requireLogin('profileSection')">Profile</a>
+<a onclick="requireLogin('settings')">Settings</a>
 </nav>
 
-<!-- Home -->
+<!-- HOME -->
 <div class="container" id="home">
 <h2 class="section-title">Welcome</h2>
 <div class="card">
 <h3>About This Platform</h3>
-<img id="profilePic" src="images/profile_photo.jpg" alt="Profile Photo">
+<img id="profilePic" src="https://via.placeholder.com/150">
 <p>This platform provides professional programming notes and exams including C++ and Firmware.</p>
 </div>
 <div class="card">
 <h3>Quick Access</h3>
-<a class="btn" onclick="showSection('notes')">📘 Notes</a>
-<a class="btn" onclick="showSection('exam')">📝 Exams</a>
+<button class="btn" onclick="requireLogin('notes')">📘 Notes</button>
+<button class="btn" onclick="requireLogin('exam')">📝 Exams</button>
 </div>
 </div>
 
-<!-- Notes -->
+<!-- NOTES -->
 <div class="container" id="notes">
 <h2 class="section-title">Programming Notes</h2>
 <div id="notesContainer"></div>
 </div>
 
-<!-- Exams -->
+<!-- EXAMS -->
 <div class="container" id="exam">
 <h2 class="section-title">Examinations</h2>
 <div id="examContainer"></div>
 </div>
 
-<!-- Login -->
+<!-- LOGIN -->
 <div class="container" id="login">
 <h2 class="section-title">Login</h2>
 <div class="card" style="max-width:400px;margin:auto;">
 <form id="loginForm">
-<label>Email:</label>
 <input type="email" id="email" placeholder="Enter email" required>
-<label>Password:</label>
 <input type="password" id="password" placeholder="Enter password" required>
 <button type="submit" class="btn">Login</button>
 </form>
 </div>
 </div>
 
-<!-- Profile -->
+<!-- PROFILE -->
 <div class="container" id="profileSection">
 <h2 class="section-title">Your Profile</h2>
-<div class="card" style="max-width:400px;margin:auto;">
-<img id="profilePicProfile" src="images/profile_photo.jpg">
-<input type="file" id="profilePicUpload" onchange="uploadProfilePic(event)">
+<div class="card" style="max-width:500px;margin:auto;">
+<img id="profilePicProfile" src="https://via.placeholder.com/150">
+<input type="file" onchange="uploadProfilePic(event)">
 <h3 id="userEmail"></h3>
-<p>Saved Notes:</p>
-<div id="savedNotes"></div>
+<h4>Completed Notes</h4>
+<div id="completedNotes"></div>
+<h4>Exam History</h4>
+<div id="examHistory"></div>
 <button class="btn" onclick="logout()">Logout</button>
 </div>
 </div>
 
-<!-- Settings -->
+<!-- SETTINGS -->
 <div class="container" id="settings">
 <h2 class="section-title">Settings</h2>
 <div class="card" style="max-width:400px;margin:auto;">
-<h3>Profile Settings</h3>
-<img id="profilePicSettings" src="images/profile_photo.jpg" width="150">
-<input type="file" id="profilePicUploadSettings" onchange="uploadProfilePic(event)">
-<h3>Saved Notes</h3>
-<div id="savedNotesSettings"></div>
-<button class="btn" onclick="clearSavedNotes()">Clear All Notes</button>
+<img id="profilePicSettings" src="https://via.placeholder.com/150">
+<input type="file" onchange="uploadProfilePic(event)">
+<button class="btn" onclick="clearAllData()">Clear All Progress</button>
 </div>
 </div>
 
 <footer>
-<p>© 2026 Habineza Tech Academy | All Rights Reserved</p>
+© 2026 Habineza Tech Academy | All Rights Reserved
 </footer>
 
 <script>
-// SPA navigation
+// LOGIN REQUIRED SYSTEM
+function isLoggedIn(){return localStorage.getItem('userEmail')!==null;}
+function requireLogin(section){
+if(!isLoggedIn()){alert("Please login first!"); showSection('login');}else{showSection(section);}
+}
+
+// SPA
 function showSection(id){
 ['home','notes','exam','login','profileSection','settings'].forEach(sec=>document.getElementById(sec).style.display='none');
 document.getElementById(id).style.display='block';
 }
 
-// Load on start
-window.onload=function(){
-showSection('home');
-const pic=localStorage.getItem('profilePic');
-if(pic){ document.getElementById('profilePic').src=pic; document.getElementById('profilePicProfile').src=pic; document.getElementById('profilePicSettings').src=pic;}
-const email=localStorage.getItem('userEmail');
-if(email){ document.getElementById('login').style.display='none'; document.getElementById('profileSection').style.display='block'; document.getElementById('userEmail').innerText=email;}
-renderNotes(); renderExams(); loadSavedNotes(); loadSavedNotesSettings();
-};
-
-// Notes & Exams data (includes C++ and Firmware)
+// NOTES DATA
 const notesData=[
-{title:"Advanced C++ Notes", content:`1. Class and Object
+{title:"Advanced C++",content:`C++ Notes:
+1. Classes & Objects
+2. Inheritance
+3. Polymorphism
+4. Encapsulation
+5. OOP Examples
 #include <iostream>
 using namespace std;
 class Student{
@@ -137,106 +134,128 @@ public:
 string name; int age; void display(){cout<<name<<" "<<age<<endl;}
 };
 int main(){Student s;s.name="Alice";s.age=20;s.display();return 0;}`},
-
-{title:"Firmware Notes", content:`1. What is Firmware?
+{title:"Firmware Basics",content:`Firmware Notes:
+1. Firmware Definition
 Firmware is low-level software programmed into hardware devices.
-
 2. Microcontroller Example:
 #include <stdio.h>
 int main(){printf("Firmware Running"); return 0;}`}
 ];
 
+// EXAMS DATA
 const examsData=[
-{title:"C++ Exam", content:`Question 1:
-Write a class 'Rectangle' with width and height, and a function to calculate area.
-
-Question 2:
-Create a 'Circle' class with radius, and write a function to calculate circumference.`},
-
-{title:"Firmware Exam", content:`Question 1:
-Write code to toggle an LED on a microcontroller.
-
-Question 2:
-Write code to read a button state.`}
+{
+title:"C++ Exam",
+time:60,
+questions:[
+{q:"What is OOP?",options:["Object Oriented Programming","Only One Process","Output Operation Program"],answer:0},
+{q:"Which symbol is used for scope resolution?",options:["::","##","//"],answer:0}
+]
+},
+{
+title:"Firmware Exam",
+time:60,
+questions:[
+{q:"What is Firmware?",options:["Low-level software programmed into hardware","A virus","A web framework"],answer:0},
+{q:"Which device runs firmware?",options:["Microcontroller","Table","Cable"],answer:0},
+{q:"Which language is commonly used?",options:["C","HTML","CSS"],answer:0}
+]
+}
 ];
 
-// Render Notes
-function renderNotes(){
+let timerInterval,currentExamIndex,shuffledQuestions=[];
+
+// LOAD
+window.onload=function(){
+if(isLoggedIn()){showSection('home');}else{showSection('login');}
+loadNotes(); loadExams(); loadProfile();
+const pic=localStorage.getItem('profilePic');
+if(pic){document.getElementById('profilePic').src=pic; document.getElementById('profilePicProfile').src=pic; document.getElementById('profilePicSettings').src=pic;}
+};
+
+// LOAD NOTES
+function loadNotes(){
 const container=document.getElementById('notesContainer'); container.innerHTML='';
 notesData.forEach(note=>{
 const div=document.createElement('div'); div.className='card';
 div.innerHTML=`<h3>${note.title}</h3><pre>${note.content}</pre>
-<a class="btn" onclick="saveNote('${note.title}')">Save Note</a>
-<a class="btn" onclick="downloadNote('${note.title}')">Download Note</a>`;
+<button class="btn" onclick="completeNote('${note.title}')">Mark as Completed</button>`;
 container.appendChild(div);
 });
 }
+function completeNote(title){
+let completed=JSON.parse(localStorage.getItem('completedNotes'))||[];
+if(!completed.includes(title)){completed.push(title); localStorage.setItem('completedNotes',JSON.stringify(completed)); alert("Note completed!");}
+loadProfile();
+}
 
-// Render Exams
-function renderExams(){
+// LOAD EXAMS
+function loadExams(){
 const container=document.getElementById('examContainer'); container.innerHTML='';
-examsData.forEach(exam=>{
+examsData.forEach((exam,index)=>{
 const div=document.createElement('div'); div.className='card';
-div.innerHTML=`<h3>${exam.title}</h3><pre>${exam.content}</pre>
-<a class="btn" onclick="alert('Exam opened: ${exam.title}')">Take Exam</a>`;
+div.innerHTML=`<h3>${exam.title}</h3>
+<button class="btn" onclick="startExam(${index})">Take Exam</button>`;
 container.appendChild(div);
 });
 }
 
-// Save & Load Notes
-function saveNote(note){
-let saved=JSON.parse(localStorage.getItem('savedNotes'))||[];
-if(!saved.includes(note)){saved.push(note); localStorage.setItem('savedNotes',JSON.stringify(saved)); alert(note+" saved!");} else{alert("Note already saved!");}
-loadSavedNotes(); loadSavedNotesSettings();
-}
-function loadSavedNotes(){
-const container=document.getElementById('savedNotes'); container.innerHTML='';
-const saved=JSON.parse(localStorage.getItem('savedNotes'))||[];
-saved.forEach(note=>{const div=document.createElement('div'); div.className='saved-note'; div.innerText=note; container.appendChild(div);});
-}
-function loadSavedNotesSettings(){
-const container=document.getElementById('savedNotesSettings'); container.innerHTML='';
-const saved=JSON.parse(localStorage.getItem('savedNotes'))||[];
-if(saved.length===0){ container.innerHTML="<p>No saved notes.</p>"; return;}
-saved.forEach(note=>{const div=document.createElement('div'); div.className='saved-note'; div.innerText=note; container.appendChild(div);});
-}
-function clearSavedNotes(){if(confirm("Delete all saved notes?")){localStorage.removeItem('savedNotes');loadSavedNotes();loadSavedNotesSettings(); alert("All saved notes cleared!");}}
-
-// Download Note
-function downloadNote(note){
-const content=notesData.find(n=>n.title===note)?.content||note+" content not found.";
-const element=document.createElement('a');
-const file=new Blob([note+"\n\n"+content],{type:'text/plain'});
-element.href=URL.createObjectURL(file);
-element.download=note+".txt";
-document.body.appendChild(element); element.click(); document.body.removeChild(element);
-}
-
-// Login
-document.getElementById('loginForm').addEventListener('submit',function(e){
-e.preventDefault();
-const email=document.getElementById('email').value;
-const password=document.getElementById('password').value;
-if(email && password){ localStorage.setItem('userEmail',email); alert("Login Successful! Welcome "+email); showSection('profileSection'); document.getElementById('userEmail').innerText=email;}
-else{alert("Invalid email or password!");}
+// START EXAM
+function startExam(index){
+if(!isLoggedIn()){requireLogin('login');return;}
+currentExamIndex=index;
+const exam=examsData[index]; shuffledQuestions=[...exam.questions].sort(()=>Math.random()-0.5);
+const container=document.getElementById('examContainer');
+container.innerHTML=`<div class="card">
+<h3>${exam.title}</h3>
+<p><strong>Time Left: <span id="timer">${exam.time}</span> sec</strong></p>
+<form id="examForm"></form>
+<button class="btn" onclick="submitExam()">Submit</button>
+<button class="btn" onclick="loadExams()">Back to Another Exam</button>
+</div>`;
+const form=document.getElementById('examForm');
+shuffledQuestions.forEach((q,i)=>{
+let html=`<p><strong>${i+1}. ${q.q}</strong></p>`; q.options.forEach((opt,j)=>{html+=`<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label><br>`;});
+form.innerHTML+=html;
 });
-
-// Profile Pic Upload
-function uploadProfilePic(event){
-const reader=new FileReader();
-reader.onload=function(){
-const dataURL=reader.result;
-document.getElementById('profilePic').src=dataURL;
-document.getElementById('profilePicProfile').src=dataURL;
-document.getElementById('profilePicSettings').src=dataURL;
-localStorage.setItem('profilePic',dataURL);
-alert("Profile picture updated!");
-}
-reader.readAsDataURL(event.target.files[0]);
+let timeLeft=exam.time;
+timerInterval=setInterval(()=>{timeLeft--; document.getElementById('timer').innerText=timeLeft; if(timeLeft<=0){clearInterval(timerInterval); submitExam();}},1000);
 }
 
-// Logout
-function logout(){ localStorage.removeItem('userEmail'); localStorage.removeItem('savedNotes'); alert("You have logged out!"); showSection('login');}
+// SUBMIT EXAM
+function submitExam(){
+clearInterval(timerInterval);
+let score=0;
+shuffledQuestions.forEach((q,i)=>{const answer=document.querySelector(`input[name="q${i}"]:checked`); if(answer && parseInt(answer.value)===q.answer){score++;}});
+const percent=Math.round((score/shuffledQuestions.length)*100);
+const pass=percent>=60?"PASS":"FAIL";
+let history=JSON.parse(localStorage.getItem('examHistory'))||[];
+history.push({title:examsData[currentExamIndex].title,score:percent,result:pass});
+localStorage.setItem('examHistory',JSON.stringify(history));
+alert(`Score: ${percent}% - ${pass}`); if(pass==="PASS"){alert("🎉 Congratulations! Certificate Earned!");}
+loadProfile(); showSection('profileSection');
+}
+
+// PROFILE
+function loadProfile(){
+const email=localStorage.getItem('userEmail'); if(email){document.getElementById('userEmail').innerText=email;}
+const completed=JSON.parse(localStorage.getItem('completedNotes'))||[];
+document.getElementById('completedNotes').innerHTML=completed.length?completed.map(n=>"<div class='saved-note'>"+n+"</div>").join(""):"No completed notes.";
+const history=JSON.parse(localStorage.getItem('examHistory'))||[];
+document.getElementById('examHistory').innerHTML=history.length?history.map(h=>"<div class='saved-note'>"+h.title+" - "+h.score+"% ("+h.result+")</div>").join(""):"No exams taken.";
+}
+
+// LOGIN
+document.getElementById('loginForm').addEventListener('submit',function(e){e.preventDefault(); const email=document.getElementById('email').value; localStorage.setItem('userEmail',email); alert("Login successful!"); showSection('home'); loadProfile();});
+
+// LOGOUT
+function logout(){localStorage.clear(); alert("Logged out!"); showSection('login');}
+
+// PROFILE PIC
+function uploadProfilePic(event){const reader=new FileReader(); reader.onload=function(){localStorage.setItem('profilePic',reader.result); document.getElementById('profilePic').src=reader.result; document.getElementById('profilePicProfile').src=reader.result; document.getElementById('profilePicSettings').src=reader.result;}; reader.readAsDataURL(event.target.files[0]);}
+
+// CLEAR DATA
+function clearAllData(){if(confirm("Clear all progress?")){localStorage.clear(); location.reload();}}
 </script>
 
 </body>
