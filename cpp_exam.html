@@ -2,43 +2,89 @@
 <html>
 <head>
     <title>Advanced C++ Exam</title>
-</head>
-<body style="font-family: Arial; padding:20px;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+    font-family: Arial;
+    margin:0;
+    background:#f4f6f9;
+}
 
+header{
+    background:#2c3e50;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+nav{
+    background:#1f2d3d;
+    padding:10px;
+    text-align:center;
+}
+
+nav a{
+    color:white;
+    margin:15px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.container{
+    padding:30px;
+}
+
+pre{
+    background:#272822;
+    color:#f8f8f2;
+    padding:15px;
+    border-radius:8px;
+    overflow:auto;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:10px 15px;
+    background:#3498db;
+    color:white;
+    text-decoration:none;
+    border-radius:5px;
+}
+
+.btn:hover{
+    background:#2980b9;
+}
+</style>
+</head>
+
+<body>
+
+<header>
 <h1>Advanced C++ Examination</h1>
+</header>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="cpp_advanced.html">Notes</a>
+</nav>
+
+<div class="container">
 
 <h2>Section A: Theory</h2>
 
-<p>1. What is OOP?</p>
-<p><b>Answer:</b> Object-Oriented Programming is a programming paradigm based on objects and classes.</p>
+<p>1. Define OOP.</p>
+<p><b>Answer:</b> Object-Oriented Programming is based on classes and objects.</p>
 
-<p>2. Define Encapsulation.</p>
-<p><b>Answer:</b> Encapsulation is hiding data using private members.</p>
+<p>2. What is Encapsulation?</p>
+<p><b>Answer:</b> Hiding data using private members.</p>
 
-<p>3. What is Inheritance?</p>
-<p><b>Answer:</b> Inheritance allows one class to inherit properties from another.</p>
+<p>3. Explain Inheritance.</p>
+<p><b>Answer:</b> One class acquiring properties of another.</p>
 
 <h2>Section B: Practical</h2>
 
-<p>4. Write a program using class and object.</p>
-
-<pre>
-#include <iostream>
-using namespace std;
-
-class Book {
-public:
-    string title;
-};
-
-int main() {
-    Book b;
-    b.title = "C++ Guide";
-    cout << b.title;
-}
-</pre>
-
-<p>5. Write a program demonstrating inheritance.</p>
+<p>4. Write a program using inheritance.</p>
 
 <pre>
 #include <iostream>
@@ -47,7 +93,7 @@ using namespace std;
 class Parent {
 public:
     void show() {
-        cout << "Parent class";
+        cout << "Parent";
     }
 };
 
@@ -59,6 +105,10 @@ int main() {
     c.show();
 }
 </pre>
+
+<a href="index.html" class="btn">⬅ Back to Home</a>
+
+</div>
 
 </body>
 </html>
