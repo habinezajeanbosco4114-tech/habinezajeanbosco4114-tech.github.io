@@ -1,93 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Advanced C++ Notes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{
-    font-family: Arial;
-    margin:0;
-    background:#f4f6f9;
-}
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            margin:0;
+            background:#f4f6f9;
+        }
 
-header{
-    background:#2c3e50;
-    color:white;
-    padding:20px;
-    text-align:center;
-}
+        header{
+            background:#2c3e50;
+            color:white;
+            padding:20px;
+            text-align:center;
+        }
 
-nav{
-    background:#1f2d3d;
-    padding:10px;
-    text-align:center;
-}
+        nav{
+            background:#1f2d3d;
+            padding:10px;
+            text-align:center;
+        }
 
-nav a{
-    color:white;
-    margin:15px;
-    text-decoration:none;
-    font-weight:bold;
-}
+        nav a{
+            color:white;
+            margin:15px;
+            text-decoration:none;
+            font-weight:bold;
+        }
 
-.container{
-    padding:30px;
-}
+        .container{
+            padding:30px;
+        }
 
-pre{
-    background:#272822;
-    color:#f8f8f2;
-    padding:15px;
-    border-radius:8px;
-    overflow:auto;
-}
+        pre{
+            background:#272822;
+            color:#f8f8f2;
+            padding:15px;
+            border-radius:8px;
+            overflow:auto;
+        }
 
-.btn{
-    display:inline-block;
-    margin-top:20px;
-    padding:10px 15px;
-    background:#3498db;
-    color:white;
-    text-decoration:none;
-    border-radius:5px;
-}
+        .btn{
+            display:inline-block;
+            margin-top:20px;
+            padding:10px 15px;
+            background:#3498db;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
 
-.btn:hover{
-    background:#2980b9;
-}
-</style>
+        .btn:hover{
+            background:#2980b9;
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
-<h1>Advanced C++ Programming (OOP)</h1>
+    <h1>Advanced C++ Programming (OOP)</h1>
 </header>
 
 <nav>
-<a href="index.html">Home</a>
-<a href="cpp_advanced_exam.html">Exam</a>
+    <a href="index.html">Home</a>
+    <a href="cpp.html">C++ Notes</a>
 </nav>
 
 <div class="container">
 
 <h2>1. Class and Object</h2>
-
 <pre>
+#include &lt;iostream&gt;
+using namespace std;
+
 class Student {
 public:
     string name;
     int age;
 
     void display() {
-        cout << name << age;
+        cout &lt;&lt; name &lt;&lt; " " &lt;&lt; age &lt;&lt; endl;
     }
 };
+
+int main() {
+    Student s;
+    s.name = "Alice";
+    s.age = 20;
+    s.display();
+    return 0;
+}
 </pre>
 
 <h2>2. Constructor</h2>
-
 <pre>
+#include &lt;iostream&gt;
+using namespace std;
+
 class Car {
 public:
     string brand;
@@ -95,12 +108,24 @@ public:
     Car(string b) {
         brand = b;
     }
+
+    void showBrand() {
+        cout &lt;&lt; "Brand: " &lt;&lt; brand &lt;&lt; endl;
+    }
 };
+
+int main() {
+    Car c("Toyota");
+    c.showBrand();
+    return 0;
+}
 </pre>
 
 <h2>3. Encapsulation</h2>
-
 <pre>
+#include &lt;iostream&gt;
+using namespace std;
+
 class Person {
 private:
     int age;
@@ -114,36 +139,66 @@ public:
         return age;
     }
 };
+
+int main() {
+    Person p;
+    p.setAge(25);
+    cout &lt;&lt; "Age: " &lt;&lt; p.getAge() &lt;&lt; endl;
+    return 0;
+}
 </pre>
 
 <h2>4. Inheritance</h2>
-
 <pre>
+#include &lt;iostream&gt;
+using namespace std;
+
 class Animal {
 public:
     void sound() {
-        cout << "Animal sound";
+        cout &lt;&lt; "Animal sound" &lt;&lt; endl;
     }
 };
 
 class Dog : public Animal {
 };
+
+int main() {
+    Dog d;
+    d.sound();
+    return 0;
+}
 </pre>
 
 <h2>5. Polymorphism</h2>
-
 <pre>
+#include &lt;iostream&gt;
+using namespace std;
+
 class Shape {
 public:
     virtual void draw() {
-        cout << "Drawing shape";
+        cout &lt;&lt; "Drawing shape" &lt;&lt; endl;
     }
 };
+
+class Circle : public Shape {
+public:
+    void draw() override {
+        cout &lt;&lt; "Drawing circle" &lt;&lt; endl;
+    }
+};
+
+int main() {
+    Shape* s = new Circle();
+    s->draw();
+    delete s;
+    return 0;
+}
 </pre>
 
 <a href="index.html" class="btn">⬅ Back to Home</a>
 
 </div>
-
 </body>
 </html>
