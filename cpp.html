@@ -1,45 +1,149 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>C++ Notes</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced C++ Notes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{font-family:Arial;margin:0;background:#f4f6f9;padding:30px;}
-h1{color:#2c3e50;}
-pre{background:#272822;color:#fff;padding:15px;border-radius:8px;overflow:auto;}
-.btn{display:inline-block;margin-top:20px;padding:10px 20px;background:#3498db;color:white;text-decoration:none;border-radius:6px;}
-.btn:hover{background:#2980b9;}
+body{
+    font-family: Arial;
+    margin:0;
+    background:#f4f6f9;
+}
+
+header{
+    background:#2c3e50;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+nav{
+    background:#1f2d3d;
+    padding:10px;
+    text-align:center;
+}
+
+nav a{
+    color:white;
+    margin:15px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.container{
+    padding:30px;
+}
+
+pre{
+    background:#272822;
+    color:#f8f8f2;
+    padding:15px;
+    border-radius:8px;
+    overflow:auto;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:10px 15px;
+    background:#3498db;
+    color:white;
+    text-decoration:none;
+    border-radius:5px;
+}
+
+.btn:hover{
+    background:#2980b9;
+}
 </style>
 </head>
 
 <body>
 
-<h1>C++ Programming Notes</h1>
+<header>
+<h1>Advanced C++ Programming (OOP)</h1>
+</header>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="cpp_advanced_exam.html">Exam</a>
+</nav>
+
+<div class="container">
 
 <h2>1. Class and Object</h2>
+
 <pre>
 class Student {
 public:
     string name;
     int age;
+
+    void display() {
+        cout << name << age;
+    }
 };
 </pre>
 
-<h2>2. Inheritance</h2>
+<h2>2. Constructor</h2>
+
 <pre>
-class Animal {};
-class Dog : public Animal {};
+class Car {
+public:
+    string brand;
+
+    Car(string b) {
+        brand = b;
+    }
+};
 </pre>
 
-<h2>3. Polymorphism</h2>
+<h2>3. Encapsulation</h2>
+
+<pre>
+class Person {
+private:
+    int age;
+
+public:
+    void setAge(int a) {
+        age = a;
+    }
+
+    int getAge() {
+        return age;
+    }
+};
+</pre>
+
+<h2>4. Inheritance</h2>
+
+<pre>
+class Animal {
+public:
+    void sound() {
+        cout << "Animal sound";
+    }
+};
+
+class Dog : public Animal {
+};
+</pre>
+
+<h2>5. Polymorphism</h2>
+
 <pre>
 class Shape {
 public:
-    virtual void draw() {}
+    virtual void draw() {
+        cout << "Drawing shape";
+    }
 };
 </pre>
 
 <a href="index.html" class="btn">⬅ Back to Home</a>
+
+</div>
 
 </body>
 </html>
