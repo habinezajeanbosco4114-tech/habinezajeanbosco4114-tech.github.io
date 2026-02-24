@@ -1,48 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>C++ Exam</title>
+    <title>Advanced C++ Exam</title>
 </head>
 <body style="font-family: Arial; padding:20px;">
 
-<h1>C++ Examination</h1>
+<h1>Advanced C++ Examination</h1>
 
-<h2>Section A: Theory Questions</h2>
+<h2>Section A: Theory</h2>
 
-<p>1. What is C++?</p>
-<p><b>Answer:</b> C++ is a general-purpose programming language.</p>
+<p>1. What is OOP?</p>
+<p><b>Answer:</b> Object-Oriented Programming is a programming paradigm based on objects and classes.</p>
 
-<p>2. What is a variable?</p>
-<p><b>Answer:</b> A variable is a storage location used to hold data.</p>
+<p>2. Define Encapsulation.</p>
+<p><b>Answer:</b> Encapsulation is hiding data using private members.</p>
 
-<p>3. Name three data types in C++.</p>
-<p><b>Answer:</b> int, float, char.</p>
+<p>3. What is Inheritance?</p>
+<p><b>Answer:</b> Inheritance allows one class to inherit properties from another.</p>
 
-<h2>Section B: Practical Questions</h2>
+<h2>Section B: Practical</h2>
 
-<p>4. Write a program to print "Welcome".</p>
+<p>4. Write a program using class and object.</p>
 
 <pre>
 #include <iostream>
 using namespace std;
 
+class Book {
+public:
+    string title;
+};
+
 int main() {
-    cout << "Welcome";
-    return 0;
+    Book b;
+    b.title = "C++ Guide";
+    cout << b.title;
 }
 </pre>
 
-<p>5. Write a program to add two numbers.</p>
+<p>5. Write a program demonstrating inheritance.</p>
 
 <pre>
 #include <iostream>
 using namespace std;
 
+class Parent {
+public:
+    void show() {
+        cout << "Parent class";
+    }
+};
+
+class Child : public Parent {
+};
+
 int main() {
-    int a = 5;
-    int b = 3;
-    cout << a + b;
-    return 0;
+    Child c;
+    c.show();
 }
 </pre>
 
