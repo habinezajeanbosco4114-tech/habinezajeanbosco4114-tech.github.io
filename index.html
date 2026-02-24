@@ -1,111 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <title>Habineza Tech Academy</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
-body{
-    font-family: Arial, sans-serif;
-    margin:0;
-    background:#f4f6f9;
-}
-
-header{
-    background:linear-gradient(90deg,#2c3e50,#3498db);
-    color:white;
-    padding:30px;
-    text-align:center;
-}
-
-nav{
-    background:#1f2d3d;
-    padding:15px;
-    text-align:center;
-}
-
-nav a{
-    color:white;
-    margin:15px;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-nav a:hover{
-    color:#3498db;
-}
-
-.container{
-    padding:40px;
-    text-align:center;
-}
-
-.section-title{
-    margin-top:40px;
-    font-size:28px;
-    color:#2c3e50;
-}
-
-.card{
-    background:white;
-    padding:25px;
-    margin:20px auto;
-    width:85%;
-    border-radius:12px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.1);
-    text-align:left;
-}
-
-.card h3{
-    margin-top:0;
-}
-
-.btn{
-    display:inline-block;
-    margin-top:15px;
-    padding:10px 20px;
-    background:#3498db;
-    color:white;
-    text-decoration:none;
-    border-radius:6px;
-    text-align:center;
-    cursor:pointer;
-}
-
-.btn:hover{
-    background:#2980b9;
-}
-
-input[type="email"], input[type="password"]{
-    width:100%;
-    padding:10px;
-    margin:8px 0;
-    border-radius:6px;
-    border:1px solid #ccc;
-    box-sizing:border-box;
-}
-
-footer{
-    background:#2c3e50;
-    color:white;
-    text-align:center;
-    padding:20px;
-    margin-top:40px;
-}
-
-#profileSection{
-    display:none; /* hidden until login */
-}
-
-.saved-note{
-    background:#eaf1fb;
-    padding:10px;
-    margin:5px 0;
-    border-radius:6px;
-}
+body{font-family:Arial,sans-serif;margin:0;background:#f4f6f9;}
+header{background:linear-gradient(90deg,#2c3e50,#3498db);color:white;padding:30px;text-align:center;}
+nav{background:#1f2d3d;padding:15px;text-align:center;}
+nav a{color:white;margin:10px;text-decoration:none;font-weight:bold;cursor:pointer;}
+nav a:hover{color:#3498db;}
+.container{padding:40px;text-align:center;display:none;}
+.section-title{margin-top:40px;font-size:28px;color:#2c3e50;}
+.card{background:white;padding:25px;margin:20px auto;width:85%;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.1);text-align:left;}
+.card h3{margin-top:0;}
+.btn{display:inline-block;margin-top:15px;padding:10px 20px;background:#3498db;color:white;text-decoration:none;border-radius:6px;text-align:center;cursor:pointer;}
+.btn:hover{background:#2980b9;}
+input[type="email"], input[type="password"], input[type="file"]{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:1px solid #ccc;box-sizing:border-box;}
+footer{background:#2c3e50;color:white;text-align:center;padding:20px;margin-top:40px;}
+.saved-note{background:#eaf1fb;padding:10px;margin:5px 0;border-radius:6px;text-align:left;}
+#profilePic{border-radius:50%;margin:10px 0;width:150px;}
+pre{background:#272822;color:#f8f8f2;padding:15px;border-radius:8px;overflow:auto;margin:15px 0;}
 </style>
 </head>
-
 <body>
 
 <header>
@@ -114,96 +31,78 @@ footer{
 </header>
 
 <nav>
-<a href="#home">Home</a>
-<a href="#notes">Notes</a>
-<a href="#exam">Exam</a>
-<a href="#login">Login</a>
-<a href="#profileSection">Profile</a>
+<a onclick="showSection('home')">Home</a>
+<a onclick="showSection('notes')">Notes</a>
+<a onclick="showSection('exam')">Exam</a>
+<a onclick="showSection('login')">Login</a>
+<a onclick="showSection('profileSection')">Profile</a>
+<a onclick="showSection('settings')">Settings</a>
 </nav>
 
-<!-- Home Section -->
+<!-- Home -->
 <div class="container" id="home">
 <h2 class="section-title">Welcome</h2>
-
 <div class="card">
 <h3>About This Platform</h3>
-<img src="images/profile_photo.jpg" alt="Profile Photo" width="150" style="border-radius:50%; margin:10px 0;">
-<p>This website provides professional programming notes and exams including C++ and Firmware.</p>
+<img id="profilePic" src="images/profile_photo.jpg" alt="Profile Photo">
+<p>This platform provides professional programming notes and exams including C++ and Firmware.</p>
 </div>
-
 <div class="card">
-<h3>C++ Learning Platform</h3>
-<p>Quick access to C++ Notes and C++ Exams.</p>
-<a href="cpp_notes.html" class="btn">📘 C++ Notes</a>
-<a href="cpp_exam.html" class="btn">📝 C++ Exam</a>
+<h3>Quick Access</h3>
+<a class="btn" onclick="showSection('notes')">📘 Notes</a>
+<a class="btn" onclick="showSection('exam')">📝 Exams</a>
+</div>
 </div>
 
-</div>
-
-<!-- Notes Section -->
+<!-- Notes -->
 <div class="container" id="notes">
 <h2 class="section-title">Programming Notes</h2>
-
-<div class="card">
-<h3>C++ Programming Notes</h3>
-<p>Learn Object Oriented Programming, Classes, Inheritance, Polymorphism and more.</p>
-<a href="#" class="btn" onclick="saveNote('C++ OOP Notes')">Save Note</a>
-<a href="#" class="btn" onclick="downloadNote('C++ OOP Notes')">Download Note</a>
+<div id="notesContainer"></div>
 </div>
 
-<div class="card">
-<h3>Firmware Notes</h3>
-<p>Understand Embedded Systems, Microcontrollers, and Low-Level Programming.</p>
-<a href="#" class="btn" onclick="saveNote('Firmware Notes')">Save Note</a>
-<a href="#" class="btn" onclick="downloadNote('Firmware Notes')">Download Note</a>
-</div>
-</div>
-
-<!-- Exam Section -->
+<!-- Exams -->
 <div class="container" id="exam">
 <h2 class="section-title">Examinations</h2>
-
-<div class="card">
-<h3>C++ Examination</h3>
-<p>Test your knowledge in advanced C++ programming.</p>
-<a href="cpp_advanced_exam.html" class="btn">Take C++ Exam</a>
+<div id="examContainer"></div>
 </div>
 
-<div class="card">
-<h3>Firmware Examination</h3>
-<p>Test your embedded systems and firmware development knowledge.</p>
-<a href="firmware_exam.html" class="btn">Take Firmware Exam</a>
-</div>
-</div>
-
-<!-- Login Section -->
+<!-- Login -->
 <div class="container" id="login">
 <h2 class="section-title">Login</h2>
-<div class="card" style="max-width:400px; margin:auto;">
-    <form id="loginForm">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required>
-        
-        <button type="submit" class="btn">Login</button>
-    </form>
-    <p style="margin-top:10px; text-align:center;">
-        <a href="#" style="color:#3498db; text-decoration:none;" onclick="alert('Reset via email only')">Forgot Password?</a> | 
-        <a href="#" style="color:#3498db; text-decoration:none;" onclick="alert('Register via email only')">Register</a>
-    </p>
+<div class="card" style="max-width:400px;margin:auto;">
+<form id="loginForm">
+<label>Email:</label>
+<input type="email" id="email" placeholder="Enter email" required>
+<label>Password:</label>
+<input type="password" id="password" placeholder="Enter password" required>
+<button type="submit" class="btn">Login</button>
+</form>
 </div>
 </div>
 
-<!-- Profile Section -->
+<!-- Profile -->
 <div class="container" id="profileSection">
 <h2 class="section-title">Your Profile</h2>
-<div class="card" style="max-width:400px; margin:auto;">
-    <h3 id="userEmail"></h3>
-    <p>Saved Notes:</p>
-    <div id="savedNotes"></div>
-    <button class="btn" onclick="logout()">Logout</button>
+<div class="card" style="max-width:400px;margin:auto;">
+<img id="profilePicProfile" src="images/profile_photo.jpg">
+<input type="file" id="profilePicUpload" onchange="uploadProfilePic(event)">
+<h3 id="userEmail"></h3>
+<p>Saved Notes:</p>
+<div id="savedNotes"></div>
+<button class="btn" onclick="logout()">Logout</button>
+</div>
+</div>
+
+<!-- Settings -->
+<div class="container" id="settings">
+<h2 class="section-title">Settings</h2>
+<div class="card" style="max-width:400px;margin:auto;">
+<h3>Profile Settings</h3>
+<img id="profilePicSettings" src="images/profile_photo.jpg" width="150">
+<input type="file" id="profilePicUploadSettings" onchange="uploadProfilePic(event)">
+<h3>Saved Notes</h3>
+<div id="savedNotesSettings"></div>
+<button class="btn" onclick="clearSavedNotes()">Clear All Notes</button>
 </div>
 </div>
 
@@ -212,70 +111,132 @@ footer{
 </footer>
 
 <script>
-// Mock login
-document.getElementById('loginForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+// SPA navigation
+function showSection(id){
+['home','notes','exam','login','profileSection','settings'].forEach(sec=>document.getElementById(sec).style.display='none');
+document.getElementById(id).style.display='block';
+}
 
-    // Simple mock login
-    if(email && password){
-        alert("Login Successful! Welcome " + email);
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('profileSection').style.display = 'block';
-        document.getElementById('userEmail').innerText = email;
+// Load on start
+window.onload=function(){
+showSection('home');
+const pic=localStorage.getItem('profilePic');
+if(pic){ document.getElementById('profilePic').src=pic; document.getElementById('profilePicProfile').src=pic; document.getElementById('profilePicSettings').src=pic;}
+const email=localStorage.getItem('userEmail');
+if(email){ document.getElementById('login').style.display='none'; document.getElementById('profileSection').style.display='block'; document.getElementById('userEmail').innerText=email;}
+renderNotes(); renderExams(); loadSavedNotes(); loadSavedNotesSettings();
+};
 
-        // Load saved notes from localStorage
-        loadSavedNotes();
-    } else {
-        alert("Invalid email or password!");
-    }
+// Notes & Exams data (includes C++ and Firmware)
+const notesData=[
+{title:"Advanced C++ Notes", content:`1. Class and Object
+#include <iostream>
+using namespace std;
+class Student{
+public:
+string name; int age; void display(){cout<<name<<" "<<age<<endl;}
+};
+int main(){Student s;s.name="Alice";s.age=20;s.display();return 0;}`},
+
+{title:"Firmware Notes", content:`1. What is Firmware?
+Firmware is low-level software programmed into hardware devices.
+
+2. Microcontroller Example:
+#include <stdio.h>
+int main(){printf("Firmware Running"); return 0;}`}
+];
+
+const examsData=[
+{title:"C++ Exam", content:`Question 1:
+Write a class 'Rectangle' with width and height, and a function to calculate area.
+
+Question 2:
+Create a 'Circle' class with radius, and write a function to calculate circumference.`},
+
+{title:"Firmware Exam", content:`Question 1:
+Write code to toggle an LED on a microcontroller.
+
+Question 2:
+Write code to read a button state.`}
+];
+
+// Render Notes
+function renderNotes(){
+const container=document.getElementById('notesContainer'); container.innerHTML='';
+notesData.forEach(note=>{
+const div=document.createElement('div'); div.className='card';
+div.innerHTML=`<h3>${note.title}</h3><pre>${note.content}</pre>
+<a class="btn" onclick="saveNote('${note.title}')">Save Note</a>
+<a class="btn" onclick="downloadNote('${note.title}')">Download Note</a>`;
+container.appendChild(div);
+});
+}
+
+// Render Exams
+function renderExams(){
+const container=document.getElementById('examContainer'); container.innerHTML='';
+examsData.forEach(exam=>{
+const div=document.createElement('div'); div.className='card';
+div.innerHTML=`<h3>${exam.title}</h3><pre>${exam.content}</pre>
+<a class="btn" onclick="alert('Exam opened: ${exam.title}')">Take Exam</a>`;
+container.appendChild(div);
+});
+}
+
+// Save & Load Notes
+function saveNote(note){
+let saved=JSON.parse(localStorage.getItem('savedNotes'))||[];
+if(!saved.includes(note)){saved.push(note); localStorage.setItem('savedNotes',JSON.stringify(saved)); alert(note+" saved!");} else{alert("Note already saved!");}
+loadSavedNotes(); loadSavedNotesSettings();
+}
+function loadSavedNotes(){
+const container=document.getElementById('savedNotes'); container.innerHTML='';
+const saved=JSON.parse(localStorage.getItem('savedNotes'))||[];
+saved.forEach(note=>{const div=document.createElement('div'); div.className='saved-note'; div.innerText=note; container.appendChild(div);});
+}
+function loadSavedNotesSettings(){
+const container=document.getElementById('savedNotesSettings'); container.innerHTML='';
+const saved=JSON.parse(localStorage.getItem('savedNotes'))||[];
+if(saved.length===0){ container.innerHTML="<p>No saved notes.</p>"; return;}
+saved.forEach(note=>{const div=document.createElement('div'); div.className='saved-note'; div.innerText=note; container.appendChild(div);});
+}
+function clearSavedNotes(){if(confirm("Delete all saved notes?")){localStorage.removeItem('savedNotes');loadSavedNotes();loadSavedNotesSettings(); alert("All saved notes cleared!");}}
+
+// Download Note
+function downloadNote(note){
+const content=notesData.find(n=>n.title===note)?.content||note+" content not found.";
+const element=document.createElement('a');
+const file=new Blob([note+"\n\n"+content],{type:'text/plain'});
+element.href=URL.createObjectURL(file);
+element.download=note+".txt";
+document.body.appendChild(element); element.click(); document.body.removeChild(element);
+}
+
+// Login
+document.getElementById('loginForm').addEventListener('submit',function(e){
+e.preventDefault();
+const email=document.getElementById('email').value;
+const password=document.getElementById('password').value;
+if(email && password){ localStorage.setItem('userEmail',email); alert("Login Successful! Welcome "+email); showSection('profileSection'); document.getElementById('userEmail').innerText=email;}
+else{alert("Invalid email or password!");}
 });
 
-// Save note
-function saveNote(note){
-    let saved = JSON.parse(localStorage.getItem('savedNotes')) || [];
-    if(!saved.includes(note)){
-        saved.push(note);
-        localStorage.setItem('savedNotes', JSON.stringify(saved));
-        alert(note + " saved!");
-        loadSavedNotes();
-    } else {
-        alert("Note already saved!");
-    }
+// Profile Pic Upload
+function uploadProfilePic(event){
+const reader=new FileReader();
+reader.onload=function(){
+const dataURL=reader.result;
+document.getElementById('profilePic').src=dataURL;
+document.getElementById('profilePicProfile').src=dataURL;
+document.getElementById('profilePicSettings').src=dataURL;
+localStorage.setItem('profilePic',dataURL);
+alert("Profile picture updated!");
 }
-
-// Load saved notes
-function loadSavedNotes(){
-    const container = document.getElementById('savedNotes');
-    const saved = JSON.parse(localStorage.getItem('savedNotes')) || [];
-    container.innerHTML = '';
-    saved.forEach(note=>{
-        const div = document.createElement('div');
-        div.className = 'saved-note';
-        div.innerText = note;
-        container.appendChild(div);
-    });
-}
-
-// Download note
-function downloadNote(note){
-    const element = document.createElement('a');
-    const file = new Blob([note + "\n\n(Your note content goes here...)"], {type: 'text/plain'});
-    element.href = URL.createObjectURL(file);
-    element.download = note + ".txt";
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+reader.readAsDataURL(event.target.files[0]);
 }
 
 // Logout
-function logout(){
-    localStorage.removeItem('savedNotes');
-    document.getElementById('profileSection').style.display = 'none';
-    document.getElementById('login').style.display = 'block';
-    alert("You have logged out!");
-}
+function logout(){ localStorage.removeItem('userEmail'); localStorage.removeItem('savedNotes'); alert("You have logged out!"); showSection('login');}
 </script>
 
 </body>
