@@ -1,73 +1,113 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>C++ Notes</title>
+    <title>Advanced C++ Notes</title>
 </head>
 <body style="font-family: Arial; padding:20px;">
 
-<h1>C++ Programming Notes</h1>
+<h1>Advanced C++ Programming (OOP)</h1>
 
-<h2>1. Introduction to C++</h2>
-<p>C++ is a programming language used to build software, games and systems.</p>
+<h2>1. Object Oriented Programming (OOP)</h2>
+<p>OOP is a programming style based on objects and classes.</p>
 
-<h2>2. Basic Structure of C++ Program</h2>
+<h2>2. Class and Object</h2>
 
 <pre>
 #include <iostream>
 using namespace std;
 
+class Student {
+public:
+    string name;
+    int age;
+
+    void display() {
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+    }
+};
+
 int main() {
-    cout << "Hello World";
+    Student s1;
+    s1.name = "John";
+    s1.age = 20;
+    s1.display();
+
     return 0;
 }
 </pre>
 
-<h2>3. Variables</h2>
-<p>Common Data Types:</p>
-<ul>
-<li>int – Integer numbers</li>
-<li>float – Decimal numbers</li>
-<li>double – Large decimal numbers</li>
-<li>char – Single character</li>
-<li>string – Text</li>
-</ul>
-
-<h2>Example:</h2>
+<h2>3. Constructor</h2>
 
 <pre>
-int age = 20;
-float salary = 500.5;
-string name = "John";
-</pre>
+class Car {
+public:
+    string brand;
 
-<h2>4. If Statement</h2>
+    Car(string b) {
+        brand = b;
+    }
+};
 
-<pre>
-int number = 10;
-
-if(number > 5) {
-    cout << "Number is greater than 5";
+int main() {
+    Car c1("Toyota");
+    cout << c1.brand;
 }
 </pre>
 
-<h2>5. Loops</h2>
-
-<h3>For Loop</h3>
+<h2>4. Encapsulation</h2>
 
 <pre>
-for(int i = 1; i <= 5; i++) {
-    cout << i << endl;
+class Person {
+private:
+    int age;
+
+public:
+    void setAge(int a) {
+        age = a;
+    }
+
+    int getAge() {
+        return age;
+    }
+};
+</pre>
+
+<h2>5. Inheritance</h2>
+
+<pre>
+class Animal {
+public:
+    void sound() {
+        cout << "Animal sound";
+    }
+};
+
+class Dog : public Animal {
+};
+
+int main() {
+    Dog d;
+    d.sound();
 }
 </pre>
 
-<h3>While Loop</h3>
+<h2>6. Polymorphism</h2>
 
 <pre>
-int i = 1;
-while(i <= 5) {
-    cout << i;
-    i++;
-}
+class Shape {
+public:
+    virtual void draw() {
+        cout << "Drawing shape";
+    }
+};
+
+class Circle : public Shape {
+public:
+    void draw() {
+        cout << "Drawing circle";
+    }
+};
 </pre>
 
 </body>
