@@ -1,143 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student Help Platform</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Student Help Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#f4f6f9;
-}
-
-header{
-    background:linear-gradient(90deg,#2c3e50,#3498db);
-    color:white;
-    padding:30px;
-    text-align:center;
-}
-
-nav{
-    background:#1f2d3d;
-    padding:15px;
-    text-align:center;
-}
-
-nav a{
-    color:white;
-    margin:15px;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-nav a:hover{
-    color:#3498db;
-}
-
-.container{
-    padding:30px;
-    text-align:center;
-}
-
+body{margin:0;font-family:Arial;background:#f4f6f9;}
+header{background:#1e3c72;color:white;padding:25px;text-align:center;}
+nav{background:#162447;padding:15px;text-align:center;}
+nav a{color:white;margin:15px;text-decoration:none;font-weight:bold;}
+nav a:hover{color:#00c6ff;}
+.container{text-align:center;padding:40px;}
 .card{
-    background:white;
-    width:250px;
-    display:inline-block;
-    margin:15px;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+background:white;
+display:inline-block;
+width:250px;
+margin:20px;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
-
 .btn{
-    display:inline-block;
-    margin-top:10px;
-    padding:10px 15px;
-    background:#3498db;
-    color:white;
-    text-decoration:none;
-    border-radius:5px;
+display:inline-block;
+padding:10px 15px;
+background:#1e90ff;
+color:white;
+text-decoration:none;
+border-radius:5px;
+margin-top:10px;
 }
-
-.btn:hover{
-    background:#2980b9;
-}
-
-footer{
-    background:#2c3e50;
-    color:white;
-    padding:15px;
-    text-align:center;
-    margin-top:30px;
-}
+.btn:hover{background:#0b63c5;}
+footer{background:#1e3c72;color:white;text-align:center;padding:15px;margin-top:40px;}
 </style>
 </head>
-
 <body>
 
 <header>
 <h1>Student Help Platform</h1>
-<p>Download Notes & Exams for Free</p>
+<p>Professional Learning System</p>
 </header>
 
 <nav>
 <a href="index.html">Home</a>
-<a href="#notes">Notes</a>
-<a href="#exams">Exams</a>
+<a href="firmware_notes.html">Notes</a>
+<a href="firmware_exam.html">Exams</a>
+<a href="settings.html">Settings</a>
 </nav>
 
 <div class="container">
 
-<h2 id="notes">📘 Notes</h2>
-
 <div class="card">
-<h3>Mathematics</h3>
-<a href="math.pdf" class="btn" download>Download Note</a>
+<h3>Firmware Notes</h3>
+<a href="firmware_notes.html" class="btn">Open Notes</a>
 </div>
 
 <div class="card">
-<h3>C++ Programming</h3>
-<a href="cpp.pdf" class="btn" download>Download Note</a>
-</div>
-
-<div class="card">
-<h3>C Programming</h3>
-<a href="cprogramming.pdf" class="btn" download>Download Note</a>
-</div>
-
-<div class="card">
-<h3>Firmware</h3>
-<a href="firmware.pdf" class="btn" download>Download Note</a>
-</div>
-
-<div class="card">
-<h3>Refurbishment</h3>
-<a href="refurbishment.pdf" class="btn" download>Download Note</a>
-</div>
-
-<h2 id="exams">📝 Past Exams</h2>
-
-<div class="card">
-<h3>Math Exam 2025</h3>
-<a href="math_exam.pdf" class="btn" download>Download Exam</a>
-</div>
-
-<div class="card">
-<h3>C++ Exam 2025</h3>
-<a href="cpp_exam.pdf" class="btn" download>Download Exam</a>
-</div>
-
-<div class="card">
-<h3>C Programming Exam 2025</h3>
-<a href="c_exam.pdf" class="btn" download>Download Exam</a>
+<h3>Firmware Exam</h3>
+<a href="firmware_exam.html" class="btn">Open Exam</a>
 </div>
 
 </div>
 
 <footer>
-© 2026 Student Help Platform | Created by Habineza
+© 2026 Student Help Platform | Habineza
 </footer>
 
 </body>
