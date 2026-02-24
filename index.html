@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habineza Tech Academy - CSA & Trade</title>
+    <title>Habineza Tech Academy - Computer System & Architecture</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -14,7 +14,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
             min-height: 100vh;
         }
 
@@ -138,8 +138,12 @@
             background: linear-gradient(135deg, #27ae60, #229954);
         }
 
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
         /* Forms */
-        input, select {
+        input, select, textarea {
             width: 100%;
             padding: 12px 15px;
             margin: 8px 0;
@@ -149,7 +153,7 @@
             transition: all 0.3s;
         }
 
-        input:focus, select:focus {
+        input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: #3498db;
             box-shadow: 0 0 10px rgba(52,152,219,0.3);
@@ -203,6 +207,9 @@
             color: #e74c3c;
             text-align: center;
             margin: 20px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
         }
 
         /* Admin badge */
@@ -246,6 +253,21 @@
             border-left: 4px solid #3498db;
         }
 
+        /* Code blocks */
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+        }
+
         /* Footer */
         footer {
             background: rgba(44, 62, 80, 0.95);
@@ -269,12 +291,57 @@
                 margin-top: 10px;
             }
         }
+
+        /* Progress bar */
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #27ae60, #3498db);
+            transition: width 0.3s;
+        }
+
+        /* Topic tags */
+        .topic-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            background: #3498db;
+            color: white;
+            border-radius: 15px;
+            font-size: 12px;
+            margin: 2px;
+        }
+
+        /* Search bar */
+        .search-bar {
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .search-bar input {
+            padding-left: 40px;
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <h1><i class="fas fa-graduation-cap"></i> Habineza Tech Academy - CSA & Trade</h1>
+    <h1><i class="fas fa-microchip"></i> Habineza Tech Academy - Computer System & Architecture</h1>
     <div class="settings-corner" onclick="showSection('settings')">
         <i class="fas fa-cog"></i>
     </div>
@@ -291,29 +358,71 @@
 
 <!-- HOME SECTION -->
 <div class="container" id="home" style="display: block;">
-    <h2 class="section-title">Welcome to Habineza Tech Academy</h2>
+    <h2 class="section-title">Welcome to Computer System & Architecture</h2>
     <div class="card" style="text-align: center;">
         <img id="profilePic" class="profile-pic" src="https://via.placeholder.com/150" onclick="document.getElementById('fileInput').click()">
         <input type="file" id="fileInput" style="display:none" onchange="uploadProfilePic(event)" accept="image/*">
-        <h2>Computer Science & Agriculture Trade</h2>
-        <p style="color: #666; margin: 20px 0;">Your gateway to professional programming and agricultural technology</p>
+        <h2>Computer System & Architecture (CSA)</h2>
+        <p style="color: #666; margin: 20px 0;">Master C++, Firmware, Refurbishment, and C Programming</p>
+        
+        <div style="margin: 20px 0;">
+            <span class="topic-tag">C++</span>
+            <span class="topic-tag">Firmware</span>
+            <span class="topic-tag">Refurbishment</span>
+            <span class="topic-tag">C Programming</span>
+            <span class="topic-tag">Computer Architecture</span>
+        </div>
+        
         <div id="homeProgress"></div>
+        
         <div style="margin-top: 20px;">
             <button class="btn" onclick="showSection('notes')"><i class="fas fa-book"></i> Start Learning</button>
             <button class="btn btn-success" onclick="showSection('exam')"><i class="fas fa-pencil-alt"></i> Take Exam</button>
         </div>
     </div>
+
+    <div class="card">
+        <h3><i class="fas fa-chart-line"></i> Your Learning Path</h3>
+        <div class="progress-bar">
+            <div class="progress-fill" id="overallProgress" style="width: 0%"></div>
+        </div>
+        <p id="progressText">0% Complete</p>
+    </div>
 </div>
 
 <!-- NOTES SECTION -->
 <div class="container" id="notes">
-    <h2 class="section-title">Course Notes</h2>
+    <h2 class="section-title">Computer System & Architecture Notes</h2>
+    
+    <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" id="noteSearch" placeholder="Search notes..." onkeyup="searchNotes()">
+    </div>
+    
+    <div style="text-align: center; margin-bottom: 20px;">
+        <button class="btn" onclick="filterNotes('all')">All</button>
+        <button class="btn" onclick="filterNotes('C++')">C++</button>
+        <button class="btn" onclick="filterNotes('Firmware')">Firmware</button>
+        <button class="btn" onclick="filterNotes('Refurbishment')">Refurbishment</button>
+        <button class="btn" onclick="filterNotes('C')">C Programming</button>
+        <button class="btn" onclick="filterNotes('Architecture')">Architecture</button>
+    </div>
+    
     <div id="notesContainer"></div>
 </div>
 
 <!-- EXAMS SECTION -->
 <div class="container" id="exam">
-    <h2 class="section-title">Examinations</h2>
+    <h2 class="section-title">CSA Examinations</h2>
+    
+    <div style="text-align: center; margin-bottom: 20px;">
+        <button class="btn" onclick="filterExams('all')">All Exams</button>
+        <button class="btn" onclick="filterExams('C++')">C++ Exams</button>
+        <button class="btn" onclick="filterExams('Firmware')">Firmware Exams</button>
+        <button class="btn" onclick="filterExams('Refurbishment')">Refurbishment</button>
+        <button class="btn" onclick="filterExams('C')">C Programming</button>
+    </div>
+    
     <div id="examContainer"></div>
 </div>
 
@@ -376,10 +485,13 @@
             </select>
 
             <select id="regCourse">
-                <option value="">Select Program</option>
-                <option value="CSA">Computer Science & Agriculture</option>
-                <option value="Trade">International Trade</option>
-                <option value="Both">Both Programs</option>
+                <option value="">Select Specialization</option>
+                <option value="C++">C++ Programming</option>
+                <option value="Firmware">Firmware Engineering</option>
+                <option value="Refurbishment">Computer Refurbishment</option>
+                <option value="C">C Programming</option>
+                <option value="Architecture">Computer Architecture</option>
+                <option value="All">Full CSA Program</option>
             </select>
 
             <button class="btn" style="width: 100%;" onclick="sendVerificationCode()">
@@ -424,6 +536,12 @@
 
         <h4 style="margin-top: 20px;"><i class="fas fa-history"></i> Exam History</h4>
         <div id="examHistory" style="margin-top: 10px;"></div>
+
+        <h4 style="margin-top: 20px;"><i class="fas fa-chart-line"></i> Overall Progress</h4>
+        <div class="progress-bar">
+            <div class="progress-fill" id="profileProgress" style="width: 0%"></div>
+        </div>
+        <p id="profileProgressText">0% Complete</p>
 
         <button class="btn btn-danger" style="width: 100%; margin-top: 20px;" onclick="logout()">
             <i class="fas fa-sign-out-alt"></i> Logout
@@ -480,7 +598,7 @@
 </div>
 
 <footer>
-    <i class="fas fa-copyright"></i> 2026 Habineza Tech Academy - CSA & Trade | All Rights Reserved
+    <i class="fas fa-copyright"></i> 2026 Habineza Tech Academy - Computer System & Architecture | All Rights Reserved
 </footer>
 
 <script>
@@ -530,7 +648,7 @@
                 email: "admin@habineza.com",
                 password: hashPassword("Admin123"),
                 role: "admin",
-                course: "Both",
+                course: "All",
                 dob: "1990-01-01",
                 verified: true,
                 completedNotes: [],
@@ -808,179 +926,930 @@
 
     // ==================== NOTES DATA ====================
     const notesData = [
+        // C++ Notes
         {
-            id: 'csa1',
-            title: "Introduction to Computer Science in Agriculture",
-            course: "CSA",
-            content: `COMPUTER SCIENCE IN AGRICULTURE (CSA)
+            id: 'cpp1',
+            title: "C++ Programming Fundamentals",
+            topic: "C++",
+            content: `C++ PROGRAMMING BASICS
 
-1. Digital Farming Technologies
-   • Precision Agriculture
-   • Smart Sensors
-   • IoT in Agriculture
-   • Automated Systems
+1. Introduction to C++
+   • Object-Oriented Programming
+   • Classes and Objects
+   • Inheritance and Polymorphism
+   • Encapsulation and Abstraction
 
-2. Data Analytics in Farming
-   • Crop Yield Prediction
-   • Soil Analysis
-   • Weather Forecasting
-   • Market Analysis
+2. Basic Syntax
+   #include <iostream>
+   using namespace std;
+   
+   int main() {
+       cout << "Hello, World!";
+       return 0;
+   }
 
-3. Programming Applications
-   • Python for Agriculture
-   • Arduino for Automation
-   • Mobile Apps for Farmers
-   • Database Management`
+3. Data Types
+   • int (4 bytes)
+   • float (4 bytes)
+   • double (8 bytes)
+   • char (1 byte)
+   • bool (1 byte)
+
+4. Control Structures
+   • if-else statements
+   • switch case
+   • for loops
+   • while loops
+   • do-while loops
+
+5. Functions
+   • Function declaration
+   • Function definition
+   • Function parameters
+   • Return values
+   • Function overloading`
         },
         {
-            id: 'csa2',
-            title: "Smart Farming Systems",
-            course: "CSA",
-            content: `SMART FARMING TECHNOLOGIES
+            id: 'cpp2',
+            title: "C++ Object-Oriented Programming",
+            topic: "C++",
+            content: `C++ OBJECT-ORIENTED PROGRAMMING
 
-1. IoT Sensors
-   • Soil Moisture Sensors
-   • Temperature Sensors
-   • Humidity Sensors
-   • Light Sensors
+1. Classes and Objects
+   class Car {
+   private:
+       string brand;
+       int year;
+   public:
+       Car(string b, int y) {
+           brand = b;
+           year = y;
+       }
+       void display() {
+           cout << brand << " - " << year;
+       }
+   };
 
-2. Automation Systems
-   • Automated Irrigation
-   • Drone Monitoring
-   • Robotic Harvesting
-   • Smart Greenhouses
+2. Inheritance
+   class Vehicle {
+   protected:
+       int speed;
+   public:
+       void setSpeed(int s) { speed = s; }
+   };
+   
+   class Bike : public Vehicle {
+   public:
+       void showSpeed() {
+           cout << "Speed: " << speed;
+       }
+   };
 
-3. Data Management
-   • Cloud Storage
-   • Real-time Monitoring
-   • Mobile Applications
-   • Decision Support Systems`
+3. Polymorphism
+   • Virtual functions
+   • Function overloading
+   • Operator overloading
+
+4. Encapsulation
+   • Private members
+   • Public methods
+   • Getters and setters
+
+5. Abstraction
+   • Abstract classes
+   • Pure virtual functions
+   • Interfaces`
         },
         {
-            id: 'trade1',
-            title: "International Trade Fundamentals",
-            course: "Trade",
-            content: `INTERNATIONAL TRADE BASICS
+            id: 'cpp3',
+            title: "Advanced C++ Concepts",
+            topic: "C++",
+            content: `ADVANCED C++ CONCEPTS
 
-1. Trade Theories
-   • Comparative Advantage
-   • Absolute Advantage
-   • Heckscher-Ohlin Model
-   • New Trade Theory
+1. Templates
+   template <typename T>
+   T max(T a, T b) {
+       return (a > b) ? a : b;
+   }
 
-2. Trade Agreements
-   • WTO Framework
-   • Regional Agreements
-   • Bilateral Treaties
-   • Trade Blocs
+2. Exception Handling
+   try {
+       // code
+   } catch (exception& e) {
+       cout << e.what();
+   }
 
-3. Trade Documentation
-   • Bill of Lading
-   • Letter of Credit
-   • Commercial Invoice
-   • Certificate of Origin`
+3. STL (Standard Template Library)
+   • Vectors
+   • Lists
+   • Maps
+   • Algorithms
+
+4. Smart Pointers
+   • unique_ptr
+   • shared_ptr
+   • weak_ptr
+
+5. Multithreading
+   #include <thread>
+   void function() {
+       // thread work
+   }
+   thread t(function);
+   t.join();`
+        },
+
+        // Firmware Notes
+        {
+            id: 'firm1',
+            title: "Firmware Development Basics",
+            topic: "Firmware",
+            content: `FIRMWARE DEVELOPMENT BASICS
+
+1. What is Firmware?
+   • Low-level software
+   • Embedded in hardware
+   • Controls device operations
+   • Stored in ROM/Flash
+
+2. Embedded Systems
+   • Microcontrollers
+   • Microprocessors
+   • Memory types
+   • I/O interfaces
+
+3. Bare-Metal Programming
+   #include <avr/io.h>
+   
+   int main(void) {
+       DDRB |= (1 << PB0);  // Set PB0 as output
+       while(1) {
+           PORTB ^= (1 << PB0);  // Toggle LED
+           _delay_ms(1000);
+       }
+   }
+
+4. Interrupt Handling
+   ISR(TIMER1_OVF_vect) {
+       // Interrupt service routine
+   }
+
+5. Memory Management
+   • Stack vs Heap
+   • Static allocation
+   • Dynamic allocation
+   • Memory-mapped I/O`
         },
         {
-            id: 'trade2',
-            title: "Export-Import Procedures",
-            course: "Trade",
-            content: `EXPORT-IMPORT PROCEDURES
+            id: 'firm2',
+            title: "Microcontroller Programming",
+            topic: "Firmware",
+            content: `MICROCONTROLLER PROGRAMMING
 
-1. Export Process
-   • Market Research
-   • Product Compliance
-   • Documentation
-   • Shipping
-   • Payment Collection
+1. Popular Microcontrollers
+   • Arduino (AVR)
+   • STM32 (ARM)
+   • ESP32
+   • PIC
 
-2. Import Process
-   • Supplier Identification
-   • Negotiation
-   • Customs Clearance
-   • Quality Inspection
-   • Distribution
+2. GPIO Programming
+   // Arduino Example
+   void setup() {
+       pinMode(13, OUTPUT);
+   }
+   
+   void loop() {
+       digitalWrite(13, HIGH);
+       delay(1000);
+       digitalWrite(13, LOW);
+       delay(1000);
+   }
 
-3. Incoterms 2020
-   • EXW (Ex Works)
-   • FOB (Free on Board)
-   • CIF (Cost, Insurance, Freight)
-   • DDP (Delivered Duty Paid)`
+3. Communication Protocols
+   • UART
+   • I2C
+   • SPI
+   • CAN Bus
+
+4. Timers and Counters
+   // Timer configuration
+   TCCR1B |= (1 << CS12);  // Prescaler 256
+   TIMSK1 |= (1 << TOIE1); // Enable overflow interrupt
+
+5. ADC Conversion
+   analogRead(A0);
+   // Convert analog to digital`
+        },
+        {
+            id: 'firm3',
+            title: "Real-Time Operating Systems (RTOS)",
+            topic: "Firmware",
+            content: `REAL-TIME OPERATING SYSTEMS
+
+1. RTOS Concepts
+   • Tasks
+   • Scheduling
+   • Semaphores
+   • Queues
+   • Mutexes
+
+2. FreeRTOS Example
+   void Task1(void *pvParameters) {
+       while(1) {
+           vTaskDelay(1000 / portTICK_PERIOD_MS);
+       }
+   }
+   
+   void setup() {
+       xTaskCreate(
+           Task1,
+           "Task 1",
+           100,
+           NULL,
+           1,
+           NULL
+       );
+       vTaskStartScheduler();
+   }
+
+3. Task Scheduling
+   • Round Robin
+   • Priority-based
+   • Preemptive
+   • Cooperative
+
+4. Inter-Task Communication
+   • Queues
+   • Semaphores
+   • Mutexes
+   • Event groups
+
+5. Timing Constraints
+   • Hard real-time
+   • Soft real-time
+   • Worst-case execution time`
+        },
+
+        // Computer Refurbishment Notes
+        {
+            id: 'ref1',
+            title: "Computer Refurbishment Process",
+            topic: "Refurbishment",
+            content: `COMPUTER REFURBISHMENT PROCESS
+
+1. Assessment Phase
+   • Visual inspection
+   • Hardware testing
+   • Performance evaluation
+   • Cost analysis
+
+2. Cleaning and Preparation
+   • Dust removal
+   • Thermal paste replacement
+   • Connector cleaning
+   • Case restoration
+
+3. Hardware Testing
+   • Power supply test
+   • Memory test (MemTest86)
+   • Hard drive diagnostics
+   • CPU stress test
+   • GPU benchmark
+
+4. Component Replacement
+   • Failed parts identification
+   • Compatible replacements
+   • Installation procedures
+   • Quality verification
+
+5. Software Installation
+   • Operating system setup
+   • Driver installation
+   • Security updates
+   • Essential software`
+        },
+        {
+            id: 'ref2',
+            title: "Hardware Diagnostics Tools",
+            topic: "Refurbishment",
+            content: `HARDWARE DIAGNOSTICS TOOLS
+
+1. Memory Testing
+   • MemTest86
+   • Windows Memory Diagnostic
+   • GoldMemory
+
+2. Hard Drive Testing
+   • CrystalDiskInfo (S.M.A.R.T)
+   • HD Tune
+   • Victoria
+   • SeaTools
+
+3. CPU Testing
+   • Prime95
+   • IntelBurn Test
+   • CPU-Z
+   • Core Temp
+
+4. GPU Testing
+   • FurMark
+   • 3DMark
+   • GPU-Z
+   • MSI Afterburner
+
+5. Power Supply Testing
+   • Multimeter
+   • Power supply tester
+   • Load tester
+   • Voltage monitoring
+
+6. Network Testing
+   • Ping tests
+   • Speed tests
+   • Packet loss analysis
+   • WiFi analyzer`
+        },
+        {
+            id: 'ref3',
+            title: "Refurbishment Business Guide",
+            topic: "Refurbishment",
+            content: `REFURBISHMENT BUSINESS GUIDE
+
+1. Business Setup
+   • Workshop requirements
+   • Tools and equipment
+   • Inventory management
+   • Legal requirements
+
+2. Sourcing Computers
+   • Business leases
+   • Government auctions
+   • Corporate upgrades
+   • Donation programs
+
+3. Refurbishment Workflow
+   Receiving → Testing → Cleaning → 
+   Repair → Testing → Software → 
+   Quality Control → Packaging
+
+4. Quality Standards
+   • Visual grade (A, B, C)
+   • Performance grade
+   • Warranty terms
+   • Certification
+
+5. Pricing Strategy
+   • Cost calculation
+   • Market research
+   • Value addition
+   • Profit margins
+
+6. Sales Channels
+   • Online marketplaces
+   • Local stores
+   • B2B sales
+   • Export markets`
+        },
+
+        // C Programming Notes
+        {
+            id: 'c1',
+            title: "C Programming Fundamentals",
+            topic: "C",
+            content: `C PROGRAMMING BASICS
+
+1. Introduction to C
+   • Developed by Dennis Ritchie
+   • Procedural language
+   • System programming
+   • Embedded systems
+
+2. Basic Structure
+   #include <stdio.h>
+   
+   int main() {
+       printf("Hello, World!");
+       return 0;
+   }
+
+3. Data Types
+   • int (2/4 bytes)
+   • float (4 bytes)
+   • double (8 bytes)
+   • char (1 byte)
+   • void
+
+4. Operators
+   • Arithmetic (+, -, *, /, %)
+   • Relational (<, >, <=, >=, ==, !=)
+   • Logical (&&, ||, !)
+   • Bitwise (&, |, ^, ~, <<, >>)
+   • Assignment (=, +=, -=, etc.)
+
+5. Control Flow
+   if (condition) {
+       // code
+   } else if (condition) {
+       // code
+   } else {
+       // code
+   }
+
+   switch(variable) {
+       case 1:
+           // code
+           break;
+       default:
+           // code
+   }`
+        },
+        {
+            id: 'c2',
+            title: "Pointers and Memory in C",
+            topic: "C",
+            content: `POINTERS AND MEMORY MANAGEMENT
+
+1. Pointers Basics
+   int x = 10;
+   int *ptr = &x;
+   printf("%d", *ptr);  // Dereferencing
+
+2. Pointer Arithmetic
+   int arr[5] = {1,2,3,4,5};
+   int *p = arr;
+   p++;  // Move to next element
+
+3. Dynamic Memory Allocation
+   #include <stdlib.h>
+   
+   int *arr = (int*)malloc(5 * sizeof(int));
+   if (arr != NULL) {
+       // Use memory
+       free(arr);  // Don't forget to free!
+   }
+
+4. Arrays and Pointers
+   char str[] = "Hello";
+   char *ptr = str;
+   
+   while(*ptr != '\0') {
+       printf("%c", *ptr);
+       ptr++;
+   }
+
+5. Function Pointers
+   int add(int a, int b) {
+       return a + b;
+   }
+   
+   int (*funcPtr)(int,int) = &add;
+   int result = funcPtr(5,3);`
+        },
+        {
+            id: 'c3',
+            title: "File Handling in C",
+            topic: "C",
+            content: `FILE HANDLING IN C
+
+1. File Operations
+   FILE *fp;
+   fp = fopen("file.txt", "r");
+   
+   if (fp == NULL) {
+       printf("Error opening file");
+       return;
+   }
+
+2. Reading from Files
+   // Character by character
+   char ch;
+   while((ch = fgetc(fp)) != EOF) {
+       printf("%c", ch);
+   }
+   
+   // Line by line
+   char buffer[255];
+   while(fgets(buffer, 255, fp) != NULL) {
+       printf("%s", buffer);
+   }
+
+3. Writing to Files
+   fp = fopen("output.txt", "w");
+   fprintf(fp, "Writing to file");
+   fputs("Another line", fp);
+   fclose(fp);
+
+4. Binary Files
+   typedef struct {
+       int id;
+       char name[50];
+   } Record;
+   
+   Record rec = {1, "John"};
+   fwrite(&rec, sizeof(Record), 1, fp);
+
+5. File Positioning
+   fseek(fp, 0, SEEK_END);  // Go to end
+   long size = ftell(fp);    // Get file size
+   rewind(fp);               // Go to beginning`
+        },
+
+        // Computer Architecture Notes
+        {
+            id: 'arch1',
+            title: "Computer Architecture Fundamentals",
+            topic: "Architecture",
+            content: `COMPUTER ARCHITECTURE BASICS
+
+1. Von Neumann Architecture
+   • CPU
+   • Memory
+   • Input/Output
+   • Bus system
+
+2. CPU Components
+   • Control Unit
+   • ALU (Arithmetic Logic Unit)
+   • Registers
+   • Cache memory
+
+3. Memory Hierarchy
+   • Registers (fastest)
+   • L1 Cache
+   • L2 Cache
+   • L3 Cache
+   • RAM
+   • SSD/HDD (slowest)
+
+4. Instruction Cycle
+   • Fetch
+   • Decode
+   • Execute
+   • Store
+
+5. Addressing Modes
+   • Immediate
+   • Direct
+   • Indirect
+   • Register
+   • Indexed`
+        },
+        {
+            id: 'arch2',
+            title: "Processor Design",
+            topic: "Architecture",
+            content: `PROCESSOR DESIGN
+
+1. RISC vs CISC
+   RISC (Reduced Instruction Set)
+   • Simple instructions
+   • Fixed length
+   • Load/store architecture
+   • Examples: ARM, MIPS
+   
+   CISC (Complex Instruction Set)
+   • Complex instructions
+   • Variable length
+   • Memory operations
+   • Examples: x86, 68000
+
+2. Pipelining
+   Stage 1: Instruction Fetch
+   Stage 2: Instruction Decode
+   Stage 3: Execute
+   Stage 4: Memory Access
+   Stage 5: Write Back
+
+3. Superscalar Processors
+   • Multiple instruction issue
+   • Parallel execution
+   • Out-of-order execution
+   • Speculative execution
+
+4. Cache Design
+   • Direct mapped
+   • Set associative
+   • Fully associative
+   • Write policies
+
+5. Multi-core Processors
+   • Symmetric multiprocessing
+   • Cache coherence
+   • Memory consistency
+   • Thread-level parallelism`
         }
     ];
 
     // ==================== EXAMS DATA ====================
     const examsData = [
+        // C++ Exams
         {
-            id: 'exam_csa1',
-            title: "CSA Fundamentals Exam",
-            course: "CSA",
-            time: 600,
+            id: 'exam_cpp1',
+            title: "C++ Programming Basics",
+            topic: "C++",
+            time: 900,
             questions: [
                 {
-                    q: "What is Precision Agriculture?",
+                    q: "What is the correct way to create a class in C++?",
                     options: [
-                        "Farming using GPS and data analytics",
-                        "Traditional farming methods",
-                        "Organic farming only",
-                        "Manual farming techniques"
+                        "class MyClass { };",
+                        "Class MyClass { };",
+                        "create class MyClass { }",
+                        "new class MyClass { }"
                     ],
                     answer: 0
                 },
                 {
-                    q: "Which sensor measures soil moisture?",
+                    q: "Which operator is used for dynamic memory allocation in C++?",
                     options: [
-                        "Humidity sensor",
-                        "Temperature sensor",
-                        "Pressure sensor",
-                        "Light sensor"
+                        "new",
+                        "malloc",
+                        "alloc",
+                        "create"
                     ],
                     answer: 0
                 },
                 {
-                    q: "What does IoT stand for?",
+                    q: "What is inheritance in C++?",
                     options: [
-                        "Internet of Things",
-                        "Internet of Tractors",
-                        "Integration of Technology",
-                        "Intelligent Operations Technology"
+                        "Creating new classes from existing classes",
+                        "Creating multiple objects",
+                        "Deleting classes",
+                        "Copying classes"
+                    ],
+                    answer: 0
+                },
+                {
+                    q: "Which header file is needed for input/output operations in C++?",
+                    options: [
+                        "#include <iostream>",
+                        "#include <stdio.h>",
+                        "#include <conio.h>",
+                        "#include <stdlib.h>"
+                    ],
+                    answer: 0
+                },
+                {
+                    q: "What is a virtual function?",
+                    options: [
+                        "A function that can be overridden in derived classes",
+                        "A function that doesn't exist",
+                        "A static function",
+                        "A private function"
                     ],
                     answer: 0
                 }
             ]
         },
         {
-            id: 'exam_trade1',
-            title: "International Trade Basics",
-            course: "Trade",
-            time: 600,
+            id: 'exam_cpp2',
+            title: "Advanced C++ Concepts",
+            topic: "C++",
+            time: 1200,
             questions: [
                 {
-                    q: "What does FOB stand for?",
+                    q: "What is a template in C++?",
                     options: [
-                        "Free on Board",
-                        "Freight on Board",
-                        "Forward on Board",
-                        "Final Order Board"
+                        "A blueprint for creating generic functions/classes",
+                        "A special type of class",
+                        "A memory template",
+                        "A design pattern"
                     ],
                     answer: 0
                 },
                 {
-                    q: "Which document is a contract with shipping line?",
+                    q: "Which keyword is used for exception handling?",
                     options: [
-                        "Bill of Lading",
-                        "Commercial Invoice",
-                        "Packing List",
-                        "Certificate of Origin"
+                        "try",
+                        "catch",
+                        "throw",
+                        "All of the above"
+                    ],
+                    answer: 3
+                },
+                {
+                    q: "What is RAII?",
+                    options: [
+                        "Resource Acquisition Is Initialization",
+                        "Random Access Interface Implementation",
+                        "Runtime Application Integration Interface",
+                        "Rapid Application Implementation"
+                    ],
+                    answer: 0
+                }
+            ]
+        },
+
+        // Firmware Exams
+        {
+            id: 'exam_firm1',
+            title: "Firmware Development",
+            topic: "Firmware",
+            time: 900,
+            questions: [
+                {
+                    q: "What is firmware?",
+                    options: [
+                        "Software embedded in hardware",
+                        "Operating system",
+                        "Application software",
+                        "Database software"
                     ],
                     answer: 0
                 },
                 {
-                    q: "What is a Letter of Credit?",
+                    q: "Which is an example of a microcontroller?",
                     options: [
-                        "Bank guarantee of payment",
-                        "Shipping document",
-                        "Insurance policy",
-                        "Quality certificate"
+                        "Arduino Uno",
+                        "Intel i7",
+                        "Ryzen 9",
+                        "NVIDIA GPU"
+                    ],
+                    answer: 0
+                },
+                {
+                    q: "What does ISR stand for?",
+                    options: [
+                        "Interrupt Service Routine",
+                        "Instruction Set Register",
+                        "Internal System Reset",
+                        "Interface Status Report"
+                    ],
+                    answer: 0
+                }
+            ]
+        },
+        {
+            id: 'exam_firm2',
+            title: "Embedded Systems",
+            topic: "Firmware",
+            time: 1200,
+            questions: [
+                {
+                    q: "Which communication protocol uses SDA and SCL lines?",
+                    options: [
+                        "I2C",
+                        "SPI",
+                        "UART",
+                        "CAN"
+                    ],
+                    answer: 0
+                },
+                {
+                    q: "What is an RTOS?",
+                    options: [
+                        "Real-Time Operating System",
+                        "Rapid Transfer Operating System",
+                        "Remote Task Operating System",
+                        "Runtime Operating System"
+                    ],
+                    answer: 0
+                }
+            ]
+        },
+
+        // Refurbishment Exams
+        {
+            id: 'exam_ref1',
+            title: "Computer Refurbishment",
+            topic: "Refurbishment",
+            time: 900,
+            questions: [
+                {
+                    q: "What is the first step in refurbishment?",
+                    options: [
+                        "Assessment and testing",
+                        "Cleaning",
+                        "Selling",
+                        "Packaging"
+                    ],
+                    answer: 0
+                },
+                {
+                    q: "Which tool is used for memory testing?",
+                    options: [
+                        "MemTest86",
+                        "CPU-Z",
+                        "GPU-Z",
+                        "CrystalDiskInfo"
+                    ],
+                    answer: 0
+                },
+                {
+                    q: "What does S.M.A.R.T stand for?",
+                    options: [
+                        "Self-Monitoring, Analysis and Reporting Technology",
+                        "System Management and Recovery Tool",
+                        "Smart Memory Access Routine Technology",
+                        "Storage Management and Recovery Test"
+                    ],
+                    answer: 0
+                }
+            ]
+        },
+
+        // C Programming Exams
+        {
+            id: 'exam_c1',
+            title: "C Programming Basics",
+            topic: "C",
+            time: 900,
+            questions: [
+                {
+                    q: "Which function is used to print output in C?",
+                    options: [
+                        "printf()",
+                        "cout <<",
+                        "print()",
+                        "console.log()"
+                    ],
+                    answer: 0
+                },
+                {
+                    q: "What is a pointer in C?",
+                    options: [
+                        "A variable that stores memory address",
+                        "A special integer",
+                        "A function",
+                        "An array"
+                    ],
+                    answer: 0
+                },
+                {
+                    q: "Which function allocates memory dynamically?",
+                    options: [
+                        "malloc()",
+                        "alloc()",
+                        "new()",
+                        "create()"
+                    ],
+                    answer: 0
+                }
+            ]
+        },
+        {
+            id: 'exam_c2',
+            title: "Advanced C Programming",
+            topic: "C",
+            time: 1200,
+            questions: [
+                {
+                    q: "What is the size of int pointer on 32-bit system?",
+                    options: [
+                        "4 bytes",
+                        "2 bytes",
+                        "8 bytes",
+                        "1 byte"
+                    ],
+                    answer: 0
+                },
+                {
+                    q: "Which file mode opens a file for reading?",
+                    options: [
+                        "r",
+                        "w",
+                        "a",
+                        "x"
+                    ],
+                    answer: 0
+                }
+            ]
+        },
+
+        // Computer Architecture Exams
+        {
+            id: 'exam_arch1',
+            title: "Computer Architecture",
+            topic: "Architecture",
+            time: 900,
+            questions: [
+                {
+                    q: "What is the von Neumann architecture?",
+                    options: [
+                        "Stored-program computer architecture",
+                        "Parallel processing architecture",
+                        "Quantum computer architecture",
+                        "Neural network architecture"
+                    ],
+                    answer: 0
+                },
+                {
+                    q: "Which is the fastest memory?",
+                    options: [
+                        "CPU Registers",
+                        "RAM",
+                        "SSD",
+                        "HDD"
+                    ],
+                    answer: 0
+                },
+                {
+                    q: "What does ALU stand for?",
+                    options: [
+                        "Arithmetic Logic Unit",
+                        "Advanced Logic Unit",
+                        "Application Logic Unit",
+                        "Array Logic Unit"
                     ],
                     answer: 0
                 }
@@ -989,23 +1858,58 @@
     ];
 
     // ==================== LOAD NOTES ====================
+    let currentFilter = 'all';
+    let searchTerm = '';
+
     function loadNotes() {
         const container = document.getElementById('notesContainer');
         container.innerHTML = '';
 
-        notesData.forEach(note => {
+        let filteredNotes = notesData;
+
+        // Apply topic filter
+        if (currentFilter !== 'all') {
+            filteredNotes = filteredNotes.filter(note => note.topic === currentFilter);
+        }
+
+        // Apply search filter
+        if (searchTerm) {
+            filteredNotes = filteredNotes.filter(note => 
+                note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                note.content.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+
+        if (filteredNotes.length === 0) {
+            container.innerHTML = '<div class="card"><p>No notes found matching your criteria.</p></div>';
+            return;
+        }
+
+        filteredNotes.forEach(note => {
             const noteCard = document.createElement('div');
             noteCard.className = 'card';
             noteCard.innerHTML = `
                 <h3><i class="fas fa-book-open"></i> ${note.title}</h3>
-                <p style="color: #666; margin: 10px 0;">Course: ${note.course}</p>
-                <pre style="background: #f5f5f5; padding: 15px; border-radius: 10px; white-space: pre-wrap; font-family: monospace;">${note.content}</pre>
+                <p style="color: #666; margin: 10px 0;">
+                    <span class="topic-tag">${note.topic}</span>
+                </p>
+                <pre style="background: #2c3e50; color: #ecf0f1; padding: 20px; border-radius: 10px; white-space: pre-wrap; font-family: 'Courier New', monospace;">${note.content}</pre>
                 <button class="btn" onclick="completeNote('${note.title}')">
                     <i class="fas fa-check-circle"></i> Mark as Completed
                 </button>
             `;
             container.appendChild(noteCard);
         });
+    }
+
+    function filterNotes(topic) {
+        currentFilter = topic;
+        loadNotes();
+    }
+
+    function searchNotes() {
+        searchTerm = document.getElementById('noteSearch').value;
+        loadNotes();
     }
 
     // ==================== COMPLETE NOTE ====================
@@ -1034,29 +1938,50 @@
             
             alert("Note marked as completed!");
             loadProfile();
+            updateHomeProgress();
         } else {
             alert("You already completed this note!");
         }
     }
 
     // ==================== LOAD EXAMS ====================
+    let examFilter = 'all';
+
     function loadExams() {
         const container = document.getElementById('examContainer');
         container.innerHTML = '';
 
-        examsData.forEach((exam, index) => {
+        let filteredExams = examsData;
+
+        if (examFilter !== 'all') {
+            filteredExams = filteredExams.filter(exam => exam.topic === examFilter);
+        }
+
+        if (filteredExams.length === 0) {
+            container.innerHTML = '<div class="card"><p>No exams found matching your criteria.</p></div>';
+            return;
+        }
+
+        filteredExams.forEach((exam, index) => {
             const examCard = document.createElement('div');
             examCard.className = 'card';
             examCard.innerHTML = `
                 <h3><i class="fas fa-pencil-alt"></i> ${exam.title}</h3>
-                <p style="color: #666; margin: 10px 0;">Course: ${exam.course}</p>
-                <p>Questions: ${exam.questions.length} | Time: ${exam.time/60} minutes</p>
-                <button class="btn btn-success" onclick="startExam(${index})">
+                <p style="color: #666; margin: 10px 0;">
+                    <span class="topic-tag">${exam.topic}</span>
+                </p>
+                <p>Questions: ${exam.questions.length} | Time: ${Math.floor(exam.time/60)} minutes</p>
+                <button class="btn btn-success" onclick="startExam(${examsData.indexOf(exam)})">
                     <i class="fas fa-play"></i> Start Exam
                 </button>
             `;
             container.appendChild(examCard);
         });
+    }
+
+    function filterExams(topic) {
+        examFilter = topic;
+        loadExams();
     }
 
     // ==================== START EXAM ====================
@@ -1165,6 +2090,7 @@
             
             user.examHistory.push({
                 exam: exam.title,
+                topic: exam.topic,
                 score: percentage,
                 passed: passed,
                 date: new Date().toLocaleDateString()
@@ -1183,6 +2109,7 @@
         alert(`Exam Complete!\nScore: ${percentage}%\n${passed ? 'PASSED!' : 'FAILED'}`);
         
         loadExams();
+        loadProfile();
     }
 
     // ==================== LOAD PROFILE ====================
@@ -1191,7 +2118,7 @@
         if (!user) return;
         
         document.getElementById('userEmail').textContent = user.email;
-        document.getElementById('userCourse').textContent = `Program: ${user.course}`;
+        document.getElementById('userCourse').textContent = `Specialization: ${user.course}`;
         document.getElementById('userDOB').textContent = `Date of Birth: ${user.dob}`;
         
         if (user.role === 'admin') {
@@ -1228,6 +2155,14 @@
         }
         document.getElementById('examHistory').innerHTML = historyHTML;
         
+        // Calculate progress
+        const totalNotes = notesData.length;
+        const completedCount = user.completedNotes ? user.completedNotes.length : 0;
+        const progressPercent = Math.round((completedCount / totalNotes) * 100);
+        
+        document.getElementById('profileProgress').style.width = progressPercent + '%';
+        document.getElementById('profileProgressText').textContent = progressPercent + '% Complete';
+        
         // Profile picture
         if (user.profilePic) {
             document.getElementById('profilePic').src = user.profilePic;
@@ -1246,6 +2181,11 @@
         
         let notesCompleted = user.completedNotes ? user.completedNotes.length : 0;
         let examsTaken = user.examHistory ? user.examHistory.length : 0;
+        let totalNotes = notesData.length;
+        let progressPercent = Math.round((notesCompleted / totalNotes) * 100);
+        
+        document.getElementById('overallProgress').style.width = progressPercent + '%';
+        document.getElementById('progressText').textContent = progressPercent + '% Complete';
         
         document.getElementById('homeProgress').innerHTML = `
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
@@ -1364,6 +2304,7 @@
             
             alert("Progress cleared!");
             loadProfile();
+            updateHomeProgress();
         }
     }
 
